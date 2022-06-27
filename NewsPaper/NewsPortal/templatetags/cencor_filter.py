@@ -11,4 +11,5 @@ def censor(value):
             x = word.replace(word[1:], '*' * (len(word)-1))
             value = value.replace(word, x)
             return value
+    return value
 
