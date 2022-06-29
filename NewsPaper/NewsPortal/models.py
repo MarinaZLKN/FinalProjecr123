@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from django.urls import reverse
+
 
 #Сначала создаю проект и в нем приложение, которое обязательно записываю в settings.py
 #Затем в этом файле сразу прописываю каркасы таблиц - сначала создаю классы и методы и потом начинаю описывать их
@@ -67,6 +69,9 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[str(self.id)])
 
 class PostCategory(models.Model):   #промежуточная модель
     postThrough = models.ForeignKey(Post, on_delete=models.CASCADE)     #публикации
