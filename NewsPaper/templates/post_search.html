@@ -1,0 +1,71 @@
+{% extends 'flatpages/default.html' %}
+{% load cencor_filter%}
+{% load custom_tags %}
+
+
+{% block title %}
+Страница поиска!
+{% endblock title %}
+
+{% block content %}
+
+    <h3>Поиск публикаций</h3>
+
+    <hr>
+    <form method="GET">
+        {{ filter.form }}
+        <hr>
+        <p><input type="submit" value="Найти"></p>
+    </form>
+    {% if filter.qs %}
+        <h3>
+            {% if filter.qs|length > 1 %}
+                {{ filter.qs|length }} - соотвестствий
+            {% elif filter.qs|length == 1 %}
+                Только 1 соответствие найдено
+            {% elif filter.qs|length == 0 %}
+                Ничего не найдено!
+            {% endif %}
+        </h3>
+        <table>
+            <tr>
+                <td><b>Дата публикации</b></td>
+                <td><b>Название</b></td>
+                <td><b>Категория</b></td>
+                <td><b>Рейтинг</b></td>
+           </tr>
+
+            {% for post in filter.qs %}
+            <tr>
+                <td>{{ post.datecreation|date:'d M Y' }}</td>
+                <td>{{ post.title|truncatechars:50 }}</td>
+                <td>{% for cat in post.postCategory.all %}
+                            {{cat}}
+                    {% endfor %}</td>
+                <td>{{ post.rating }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+    {% if page_obj.has_previous %}
+        <a href="?{% url_replace page=1 %}">1</a>
+            {% if page_obj.previous_page_number != 1 %}
+                ...
+                <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+            {% endif %}
+   {% endif %}
+
+    {{ page_obj.number }}
+
+   {% if page_obj.has_next %}
+       <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+
+{% endblock content %}

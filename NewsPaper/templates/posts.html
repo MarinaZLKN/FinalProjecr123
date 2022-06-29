@@ -4,15 +4,12 @@
 
 {% block title %}
 <h3>Все новости!</h3>
-<h3>{{ news|length }}</h3>
+{{ news | length }}
 {% endblock title %}
 
 {% block content %}
     <h1>Последние новости:</h1>
-    <form method="GET">
-        {{ filter.form}}
-        <input type="Submit" value="Поиск" />
-    </form>
+
 
    <hr>
    {% if posts %}
@@ -43,7 +40,6 @@
    {% else %}
        <h2>Новостей нет!</h2>
    {% endif %}
-
     {% if page_obj.has_previous %}
         <a href="?{% url_replace page=1 %}">1</a>
             {% if page_obj.previous_page_number != 1 %}
@@ -63,6 +59,7 @@
            <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
    {% endif %}
+
 {% endblock content %}
 
 
