@@ -1,6 +1,7 @@
 {% extends 'flatpages/default.html' %}
 {% load cencor_filter%}
-{% load custom_tags %}
+{%load custom_tags%}
+
 
 
 {% block title %}
@@ -27,28 +28,32 @@
                 Ничего не найдено!
             {% endif %}
         </h3>
+        <h4>
         <table>
             <tr>
                 <td><b>Дата публикации</b></td>
                 <td><b>Название</b></td>
                 <td><b>Категория</b></td>
                 <td><b>Рейтинг</b></td>
-           </tr>
+             </tr>
 
-            {% for post in filter.qs %}
+            {% for post in posts_search %}
             <tr>
                 <td>{{ post.datecreation|date:'d M Y' }}</td>
                 <td>{{ post.title|truncatechars:50 }}</td>
                 <td>{% for cat in post.postCategory.all %}
-                            {{cat}}
-                    {% endfor %}</td>
+                         {{cat}}
+                 {% endfor %}</td>
                 <td>{{ post.rating }}</td>
             </tr>
             {% endfor %}
-
         </table>
+        </h4>
+
+
     {% else %}
         <h2>Новостей нет!</h2>
+
     {% endif %}
     {% if page_obj.has_previous %}
         <a href="?{% url_replace page=1 %}">1</a>
@@ -58,7 +63,9 @@
             {% endif %}
    {% endif %}
 
+
     {{ page_obj.number }}
+
 
    {% if page_obj.has_next %}
        <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>

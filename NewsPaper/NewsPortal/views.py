@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .filters import PostFilter
-from .models import Post
+from .models import Post, Author
 from .forms import PostForm
 from django.http import HttpResponseRedirect
 
@@ -36,7 +36,6 @@ class PostDetail(DetailView):
     template_name = 'post.html'
     context_object_name = 'post'
 
-
 def create_post(reguest):
     form = PostForm()
 
@@ -48,12 +47,13 @@ def create_post(reguest):
 
     return render(reguest, 'create_post.html', {'form': form})
 
+
 class PostSearch(PostList):
     model = Post
     ordering = '-datecreation'
     template_name = 'post_search.html'
     context_object_name = 'posts_search'
-    paginate_by = 4
+    paginate_by = 3
 
     def get_filter(self):
         return PostFilter(self.request.GET, queryset=super().get_queryset())
@@ -69,6 +69,7 @@ class PostCreate(CreateView):
     form_class = PostForm
     model = Post
     template_name = 'create_post.html'
+
 
 class PostUpdate(UpdateView):
     form_class = PostForm
