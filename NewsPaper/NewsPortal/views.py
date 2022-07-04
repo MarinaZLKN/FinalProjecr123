@@ -5,6 +5,7 @@ from .filters import PostFilter
 from .models import Post, Author
 from .forms import PostForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 class PostList(ListView):
     model = Post
@@ -36,7 +37,9 @@ class PostDetail(DetailView):
     template_name = 'post.html'
     context_object_name = 'post'
 
-def create_post(reguest):
+'''
+    @permission_reguired()
+    def create_post(reguest):
     form = PostForm()
 
     if reguest.method == 'POST':
@@ -45,7 +48,7 @@ def create_post(reguest):
             form.save()
             return HttpResponseRedirect('/posts/')
 
-    return render(reguest, 'create_post.html', {'form': form})
+    return render(reguest, 'create_post.html', {'form': form})'''
 
 
 class PostSearch(PostList):
@@ -65,13 +68,15 @@ class PostSearch(PostList):
         return {**super().get_context_data(*args, **kwargs), 'filter': self.get_filter()}
 
 
-class PostCreate(CreateView):
+class PostCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ('NewsPortal.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'create_post.html'
 
 
-class PostUpdate(UpdateView):
+class PostUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = ('NewsPortal.change_post',)
     form_class = PostForm
     model = Post
     template_name = 'create_post.html'
@@ -80,5 +85,7 @@ class PostDelete(DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('posts')
+
+
 
 
