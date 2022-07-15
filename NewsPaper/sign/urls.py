@@ -13,5 +13,5 @@ urlpatterns = [
          BaseRegisterView.as_view(template_name='sign/signup.html'),
          name='signup'),
     path('upgrade/', upgrade_me, name='upgrade'),
-    path('editprofile/<int:pk>', ProfileUpdate.as_view(template_name='sign/edit_profile.html'))
+    path('editprofile/<int:pk>', ProfileUpdate.as_view(template_name='sign/edit_profile.html')),
 ]

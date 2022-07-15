@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django import forms
-from .models import Post
+from .models import Post, CategorySubscribers
 
 class PostForm(forms.ModelForm):
     text = forms.CharField(min_length=30) #упрощаем код, делая быструю проверку на длину статьи
@@ -26,3 +26,9 @@ class PostForm(forms.ModelForm):
            )
 
        return cleaned_data  #возвращаем переменную куда все переопределили
+
+class SubscriberForm(forms.ModelForm):
+    class Meta:
+        model = CategorySubscribers
+        fields = ['category']
+

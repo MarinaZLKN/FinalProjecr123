@@ -34,6 +34,8 @@ class Author(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True) #название категории не будет длинным словом,поэтому ставим
     # макс 64 символа, но обязательный аргемент унивальность. чтобы категории не повторялись
+    subscribers = models.ManyToManyField(User, through='CategorySubscribers')
+
     def __str__(self):
         return f'{self.name}'
 
@@ -73,9 +75,11 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post_detail', args=[str(self.id)])
 
+
 class PostCategory(models.Model):   #промежуточная модель
     postThrough = models.ForeignKey(Post, on_delete=models.CASCADE)     #публикации
     categoryThrough = models.ForeignKey(Category, on_delete=models.CASCADE)     #категории
+
     def __str__(self):
         return f'{self.categoryThrough}'
 
@@ -99,3 +103,10 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.text}'
 
+
+class CategorySubscribers(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user}, {self.category}'

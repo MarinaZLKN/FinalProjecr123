@@ -1,11 +1,16 @@
 from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .filters import PostFilter
-from .models import Post, Author
-from .forms import PostForm
+from .filters import PostFilter, CategoryFilter
+from .models import Post, Category, CategorySubscribers
+from .forms import PostForm, SubscriberForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 
 class PostList(ListView):
     model = Post
@@ -36,6 +41,7 @@ class PostDetail(DetailView):
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
+
 
 '''
     @permission_reguired()
@@ -81,11 +87,31 @@ class PostUpdate(PermissionRequiredMixin, UpdateView):
     model = Post
     template_name = 'create_post.html'
 
+
 class PostDelete(DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('posts')
 
+
+
+class CategoryList(CreateView):
+    form_class = SubscriberForm
+    model = Category
+    template_name = 'categories.html'
+    context_object_name = 'categories'
+    queryset = Category.objects.order_by('name')
+
+
+@login_required
+def add_subscribe(request, pk):
+    user = request.user
+    cat = Category.objects.get(id=pk)
+    is_subscribed = cat.subscribers.filter(id=user.id).exists()
+
+    if not is_subscribed:
+        cat.subscribers.add(user)
+    return redirect('/')
 
 
 

@@ -1,5 +1,5 @@
 from django_filters import *
-from .models import Post, Author, Category
+from .models import Post, Author, Category, CategorySubscribers
 from django.forms.widgets import DateInput
 
 
@@ -18,3 +18,11 @@ class PostFilter(FilterSet):
         model = Post
         fields = ['date', 'title', 'author', 'postCategory', 'category_type']
 
+
+class CategoryFilter(FilterSet):
+    category = ModelChoiceFilter(queryset=Category.objects.all())
+    user = ModelChoiceFilter(queryset=Category.objects.all())
+
+    class Meta:
+        model = CategorySubscribers
+        fields = ['category']
