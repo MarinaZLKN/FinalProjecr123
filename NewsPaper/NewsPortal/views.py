@@ -11,7 +11,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-
 class PostList(ListView):
     model = Post
     ordering = '-datecreation'
@@ -94,13 +93,21 @@ class PostDelete(DeleteView):
     success_url = reverse_lazy('posts')
 
 
-
 class CategoryList(CreateView):
     form_class = SubscriberForm
     model = Category
     template_name = 'categories.html'
     context_object_name = 'categories'
     queryset = Category.objects.order_by('name')
+
+    def post(self, request, *args, **kwargs):
+        form = SubscriberForm(request.POST)
+        if form.is_valid():
+            category_subscribers = form.save(commit=False)
+            category_subscribers.user = request.user
+            category_subscribers.save()
+            return HttpResponseRedirect(reverse_lazy('categories'))
+        return render(request, 'categories.html', {'form': form})
 
 
 @login_required
@@ -112,6 +119,3 @@ def add_subscribe(request, pk):
     if not is_subscribed:
         cat.subscribers.add(user)
     return redirect('/')
-
-
-
