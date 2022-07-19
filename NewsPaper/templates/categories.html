@@ -1,11 +1,12 @@
 {% extends 'flatpages/default.html' %}
 
 {% block title %}
-Подписка на категорию
+<h5>Пописавшись на какую-либо из категорий, вы будете получать рассылку новых статей! </h5>
+
 {% endblock title %}
 
 {% block content %}
-<h2>Выберите категорию:</h2>
+<h4>Выберите категорию:</h4>
 <br>
 <form method="POST">
     {% csrf_token %}

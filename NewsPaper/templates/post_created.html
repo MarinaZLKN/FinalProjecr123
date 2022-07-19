@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mailing list</title>
+</head>
+<body>
+
+    <<h1> Приветствуем! Появилась новая статья в твоей любимой категории!</h1>
+    <p> Заголовок: {{ post.title  }} <br>
+        Краткое описание: {{ post.text|truncatechars:50 }} </p>
+    <p> Ссылка на статью: <a href="{{ url }}">">здесь</a> <br> </p>
+
+</body>
+</html>
+
