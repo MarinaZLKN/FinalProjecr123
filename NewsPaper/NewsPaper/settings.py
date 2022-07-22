@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'NewsPortal.apps.NewsportalConfig',
     'django_filters',
     'sign',
+    'django_apscheduler',
     'protect',
     'allauth',
     'allauth.account',
@@ -156,4 +157,5 @@ DEFAULT_FROM_EMAIL = 'MarinaRAhven@yandex.ru'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
