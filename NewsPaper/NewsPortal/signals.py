@@ -7,9 +7,10 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from .models import Post
 from datetime import timedelta, date
+from .tasks import notify_post_create_celery
 
 
-@receiver(m2m_changed, sender=PostCategory)
+'''@receiver(m2m_changed, sender=PostCategory)
 def notify_post_create(sender, instance, action, **kwargs):
     if action == 'post_add':
         for cat in instance.postCategory.all():
@@ -36,8 +37,17 @@ def notify_post_create(sender, instance, action, **kwargs):
 
 
                 print(f'{instance.title} {instance.text}')
-                print('Уведомление отослано подписчику ', subscribe.user, 'на почту', subscribe.user.email, ' на тему ', subscribe.category)
+                print('Уведомление отослано подписчику ', subscribe.user, 'на почту', subscribe.user.email, ' на тему ', subscribe.category)'''
 
+
+@receiver(post_save, sender=Post)
+def after_post_create(sender, instance, action, **kwargs):
+    notify_post_create_celery.delay(
+        sender=sender,
+        instance=instance,
+        action=action,
+        **kwargs,
+    )
 
 def collect_subscribers(category):
     """ Перебрать всех подписчиков в таблице категорий, извлечь их электронную почту
@@ -63,7 +73,7 @@ def send_emails(post_object, *args, **kwargs):
     msg.send(fail_silently=False)
 
 
-def week_post_2():
+'''def week_post_2():
     """ Функция отправки рассылки подписчикам за неделю """
     week = timedelta(days=1)
     posts = Post.objects.all()
@@ -117,5 +127,5 @@ def week_post_2():
             email_subject=email_subject,
             template=template,
             email_recipients=[email, ]
-        )
+        )'''
 
