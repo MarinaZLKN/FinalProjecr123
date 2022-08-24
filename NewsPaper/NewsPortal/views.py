@@ -8,9 +8,17 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
+import logging
+
+logger = logging.getLogger('django')
+logger2 = logging.getLogger('django')
+logger3 = logging.getLogger('django')
+
 
 
 class PostList(ListView):
+    logger2.info('checking the page')
     model = Post
     ordering = '-datecreation'
     template_name = 'posts.html'
@@ -36,9 +44,20 @@ class PostList(ListView):
 
 
 class PostDetail(DetailView):
+    logger3.info('checking the post detail')
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
+
+    def get_object(self, *args, **kwargs):  # переопределяем метод получения объекта
+        # Он забирает значение по ключу, если его нет, то забирает None.
+        obj = cache.get(f'post-{self.kwargs["pk"]}', None)
+
+        # если объекта нет в кэше, то получаем его и записываем в кэш
+        if not obj:
+            obj = super().get_object(queryset=self.queryset)
+            cache.set(f'post-{self.kwargs["pk"]}', obj)
+        return obj
 
 
 '''
@@ -56,6 +75,7 @@ class PostDetail(DetailView):
 
 
 class PostSearch(PostList):
+    logger.info('Seaching was used')
     model = Post
     ordering = '-datecreation'
     template_name = 'post_search.html'
@@ -73,6 +93,7 @@ class PostSearch(PostList):
 
 
 class PostCreate(PermissionRequiredMixin, CreateView):
+    logger2.info('checking the create page')
     permission_required = ('NewsPortal.add_post',)
     form_class = PostForm
     model = Post
@@ -99,7 +120,8 @@ class CategoryList(CreateView):
     context_object_name = 'categories'
     queryset = Category.objects.order_by('name')
 
-    def post(self, request, *args, **kwargs):   #функция подписки на категорию и связи юзера с категорией
+    def post(self, request, *args, **kwargs): #функция подписки на категорию и связи юзера с категорией
+        logger4.info('subscription to category')
         form = SubscriberForm(request.POST)
         if form.is_valid():
             category_subscribers = form.save(commit=False)

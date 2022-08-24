@@ -2,12 +2,14 @@
 {% load cencor_filter%}
 {%load custom_tags%}
 
+{% load cache %}
+    {% cache 30 title %}
+        {% block title %}
+        Страница поиска!
+        {% endblock title %}
+    {% endcache %}
 
-
-{% block title %}
-Страница поиска!
-{% endblock title %}
-
+{% cache 30 content %}
 {% block content %}
 
     <h3>Поиск публикаций</h3>
@@ -76,3 +78,4 @@
    {% endif %}
 
 {% endblock content %}
+{% endcache %}

@@ -1,4 +1,4 @@
-from celery import app as celery_app
+from NewsPaper.celery import app as celery_app
 from .utils import notify_all_subscribers, notify_post_create
 from celery.schedules import crontab
 
