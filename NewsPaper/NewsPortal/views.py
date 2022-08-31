@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .filters import PostFilter
 from .models import Post, Category
 from .forms import PostForm, SubscriberForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -25,6 +25,7 @@ class PostList(ListView):
     context_object_name = 'posts'
     paginate_by = 6
 
+
     def get_queryset(self):
         # Получаем обычный запрос
         queryset = super().get_queryset()
@@ -41,6 +42,8 @@ class PostList(ListView):
         context = super().get_context_data(**kwargs)
         context['news'] = 'posts'
         return context
+
+
 
 
 class PostDetail(DetailView):
