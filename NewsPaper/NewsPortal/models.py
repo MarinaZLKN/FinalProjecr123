@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.urls import reverse
 from django.core.cache import cache
+from django.utils.translation import gettext as _
+from django.utils.translation import pgettext_lazy
 
 
 #Сначала создаю проект и в нем приложение, которое обязательно записываю в settings.py
@@ -50,12 +52,12 @@ class Post(models.Model):
         (NEWS, 'Новость'),
         (ARTICLE, 'Статья'),
     )
-    category_type = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default=ARTICLE)   #поле категории
+    category_type = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default=ARTICLE, help_text=_('post type'))   #поле категории
     # определяем из списка категорий выше, по умолчанию статья.
     datecreation = models.DateTimeField(auto_now_add=True)  #выбираем свойство сохранения автоматического время создания
-    postCategory = models.ManyToManyField(Category, through='PostCategory')     #связь многие к многим, поскольку
+    postCategory = models.ManyToManyField(Category, through='PostCategory', help_text=_('category name'))     #связь многие к многим, поскольку
     # публикации могут быть разных категорий и наоборот
-    title = models.CharField(max_length=128)    #ставим среднее колисетво символов для названия
+    title = models.CharField(max_length=128, help_text=_('post title'))    #ставим среднее колисетво символов для названия
     text = models.TextField()   #неограниченное количсество символов для самой новости или статьи
     rating = models.SmallIntegerField(default=0)    #рейтинг статьи по умолчанию 0
 

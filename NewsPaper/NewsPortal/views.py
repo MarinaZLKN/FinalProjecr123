@@ -121,7 +121,6 @@ class CategoryList(CreateView):
     queryset = Category.objects.order_by('name')
 
     def post(self, request, *args, **kwargs): #функция подписки на категорию и связи юзера с категорией
-        logger4.info('subscription to category')
         form = SubscriberForm(request.POST)
         if form.is_valid():
             category_subscribers = form.save(commit=False)

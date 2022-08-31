@@ -2,20 +2,23 @@
 {% load custom_tags %}
 {% load cache %} <!-- Загружаем кэширование -->
 
+{% load i18n %}
+
 {% cache 30 title %} <!-- Кэшируем отдельный блок на 30 секунд -->
     {% block title %}
-    <h3>Все новости!</h3>
+   {% trans "<h3>Все новости!</h3>" %}
     {{ news | length }}
     {% endblock title %}
 {% endcache %}
 
 
 {% block content %}
-<h1>Последние новости:</h1>
+{% trans "<h1>Последние новости:</h1>" %}
 
 
 <hr>
 {% if posts %}
+
 <table>
     <tr>
         <td><h5>Название</h5></td>
