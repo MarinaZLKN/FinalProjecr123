@@ -10,6 +10,9 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 import logging
+from django.utils import timezone
+from datetime import datetime
+import pytz  # импортируем стандартный модуль для работы с часовыми поясами
 
 logger = logging.getLogger('django')
 logger2 = logging.getLogger('django')
@@ -43,6 +46,22 @@ class PostList(ListView):
         context['news'] = 'posts'
         return context
 
+    '''def get(self, request):
+        current_time = timezone.now()
+        posts = Post.objects.all()
+
+        context = {
+            'posts': posts,
+            'current_time': timezone.now(),
+            'timezones': pytz.common_timezones  # добавляем в контекст все доступные часовые пояса
+        }
+
+        return HttpResponse(render(request, 'posts.html', context))
+
+    #  по пост-запросу будем добавлять в сессию часовой пояс, который и будет обрабатываться написанным нами ранее middleware
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/')'''
 
 
 
