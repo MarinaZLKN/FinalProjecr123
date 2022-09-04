@@ -103,6 +103,7 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     template_name = 'create_post.html'
 
 
+
 class PostUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = ('NewsPortal.change_post',)
     form_class = PostForm

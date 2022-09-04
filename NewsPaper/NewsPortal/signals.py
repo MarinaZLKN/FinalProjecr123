@@ -40,14 +40,14 @@ def notify_post_create(sender, instance, action, **kwargs):
                 print('Уведомление отослано подписчику ', subscribe.user, 'на почту', subscribe.user.email, ' на тему ', subscribe.category)'''
 
 
-@receiver(post_save, sender=Post)
+'''@receiver(post_save, sender=Post)
 def after_post_create(sender, instance, action, **kwargs):
     notify_post_create_celery.delay(
         sender=sender,
         instance=instance,
         action=action,
         **kwargs,
-    )
+    )'''
 
 def collect_subscribers(category):
     """ Перебрать всех подписчиков в таблице категорий, извлечь их электронную почту
