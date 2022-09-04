@@ -46,7 +46,7 @@ class PostList(ListView):
         context['news'] = 'posts'
         return context
 
-    '''def get(self, request):
+    def get(self, request):
         current_time = timezone.now()
         posts = Post.objects.all()
 
@@ -61,7 +61,7 @@ class PostList(ListView):
     #  по пост-запросу будем добавлять в сессию часовой пояс, который и будет обрабатываться написанным нами ранее middleware
     def post(self, request):
         request.session['django_timezone'] = request.POST['timezone']
-        return redirect('/')'''
+        return redirect('/')
 
 
 
