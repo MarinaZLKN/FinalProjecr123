@@ -44,7 +44,7 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)    #публикация имеет связь один к многим, поскольку
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name=_("Автор"))  #публикация имеет связь один к многим, поскольку
     # один автор может написать множесто статей
     NEWS = 'NW'
     ARTICLE = 'AR'
@@ -52,12 +52,12 @@ class Post(models.Model):
         (NEWS, 'Новость'),
         (ARTICLE, 'Статья'),
     )
-    category_type = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default=ARTICLE, help_text=_('post type'))   #поле категории
+    category_type = models.CharField(max_length=2, choices=CATEGORY_CHOICES, verbose_name=_("Тип статьи"), default=ARTICLE, help_text=_('post type'))   #поле категории
     # определяем из списка категорий выше, по умолчанию статья.
     datecreation = models.DateTimeField(auto_now_add=True)  #выбираем свойство сохранения автоматического время создания
-    postCategory = models.ManyToManyField(Category, through='PostCategory', help_text=_('category name'))     #связь многие к многим, поскольку
+    postCategory = models.ManyToManyField(Category, through='PostCategory', help_text=_('category name'), verbose_name=_("Категория"))     #связь многие к многим, поскольку
     # публикации могут быть разных категорий и наоборот
-    title = models.CharField(max_length=128, help_text=_('post title'))    #ставим среднее колисетво символов для названия
+    title = models.CharField(max_length=128, help_text=_('post title'), verbose_name=_("Заголовок статьи"))    #ставим среднее колисетво символов для названия
     text = models.TextField()   #неограниченное количсество символов для самой новости или статьи
     rating = models.SmallIntegerField(default=0)    #рейтинг статьи по умолчанию 0
 

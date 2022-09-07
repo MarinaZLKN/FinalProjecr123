@@ -1,10 +1,11 @@
 from django.core.exceptions import ValidationError
 from django import forms
 from .models import Post, CategorySubscribers
+from django.utils.translation import gettext as _
 
 
 class PostForm(forms.ModelForm):
-    text = forms.CharField(min_length=30)  # упрощаем код, делая быструю проверку на длину статьи
+    text = forms.CharField(min_length=30, label=_("Текст статьи"), widget=forms.Textarea)  # упрощаем код, делая быструю проверку на длину статьи
 
     class Meta:
         model = Post
