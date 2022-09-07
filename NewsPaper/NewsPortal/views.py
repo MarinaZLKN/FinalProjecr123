@@ -52,7 +52,7 @@ class PostList(ListView):
 
         context = {
             'posts': posts,
-            'current_time': timezone.now(),
+            'current_time': current_time,
             'timezones': pytz.common_timezones  # добавляем в контекст все доступные часовые пояса
         }
 

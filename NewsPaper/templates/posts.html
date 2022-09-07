@@ -7,7 +7,7 @@
 
     {% block title %}
    {% trans "<h3>Все новости!</h3>" %}
-    {{ news | length }}
+    {{ posts | length }}
 
 
 {% get_current_timezone as TIME_ZONE %}
@@ -60,6 +60,8 @@
 {% else %}
 <h2>Новостей нет!</h2>
 {% endif %}
+
+
 {% if page_obj.has_previous %}
 <a href="?{% url_replace page=1 %}">1</a>
 {% if page_obj.previous_page_number != 1 %}
