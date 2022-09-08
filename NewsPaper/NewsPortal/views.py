@@ -13,6 +13,7 @@ import logging
 from django.utils import timezone
 from datetime import datetime
 import pytz  # импортируем стандартный модуль для работы с часовыми поясами
+from django.core.paginator import Paginator
 
 logger = logging.getLogger('django')
 logger2 = logging.getLogger('django')
@@ -49,10 +50,15 @@ class PostList(ListView):
     def get(self, request):
         current_time = timezone.now()
         posts = Post.objects.all()
+        paginator = Paginator(posts, 5)
+
+        page_number = request.GET.get('post')
+        page_obj = paginator.get_page(page_number)
 
         context = {
             'posts': posts,
             'current_time': current_time,
+            'page_obj': page_obj,
             'timezones': pytz.common_timezones  # добавляем в контекст все доступные часовые пояса
         }
 
