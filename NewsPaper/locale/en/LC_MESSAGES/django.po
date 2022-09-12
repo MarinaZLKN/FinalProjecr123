@@ -1,0 +1,144 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-07 16:50+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: NewsPortal/forms.py:8
+msgid "Текст статьи"
+msgstr "Text:"
+
+#: NewsPortal/models.py:47
+msgid "Автор"
+msgstr "Author"
+
+#: NewsPortal/models.py:55
+msgid "Тип статьи"
+msgstr "Type"
+
+
+#: NewsPortal/models.py:58
+msgid "category name"
+msgstr "Категория"
+
+#: NewsPortal/models.py:58 templates/post_search.html:39
+msgid "Категория"
+msgstr "Category"
+
+#: NewsPortal/models.py:60
+msgid "post title"
+msgstr "Название статьи"
+
+#: NewsPortal/models.py:60
+msgid "Заголовок статьи"
+msgstr "Title:"
+
+#: fpages/admin.py:11
+msgid "Advanced options"
+msgstr "Улучшенные опции"
+
+#: templates/categories.html:4
+msgid "<h5>Пописавшись на какую-либо из категорий, вы будете получать рассылку новых статей! </h5>"
+msgstr "<h5>By subscribing to any of the categories, you will receive a newsletter of new articles every week!  </h5>"
+
+#: templates/categories.html:9
+msgid "<h4>Выберите категорию:</h4>"
+msgstr "<h5>Choose the category: </h5>"
+
+#: templates/create_post.html:5
+msgid "<h1>Создание новости: </h1>"
+msgstr "<h1>Create an article: </h1>"
+
+#: templates/post.html:8
+msgid "Отдельная новость!"
+msgstr "Full version of the article"
+
+#: templates/post_delete.html:4
+msgid "<h1>Удаление статьи!</h1>"
+msgstr "<h1>Article deletion</h1>"
+
+#: templates/post_search.html:9
+msgid "Страница поиска!"
+msgstr "Searching page!"
+
+#: templates/post_search.html:16
+msgid "<h3>Поиск публикаций</h3>"
+msgstr "<h3>Post Seartch!</h3>"
+
+#: templates/post_search.html:27
+msgid "соотвестствий"
+msgstr "matches"
+
+#: templates/post_search.html:29
+msgid "Только 1 соответствие найдено"
+msgstr "Only 1 match found!"
+
+#: templates/post_search.html:31
+msgid "Ничего не найдено!"
+msgstr "No match!"
+
+#: templates/post_search.html:37
+msgid "Дата публикации"
+msgstr "Date of creation"
+
+#: templates/post_search.html:38
+msgid "Название"
+msgstr "Title"
+
+#: templates/post_search.html:40
+msgid "Рейтинг"
+msgstr "Rating"
+
+#: templates/post_search.html:58
+msgid "<h2>Новостей нет!</h2>"
+msgstr "<h3>No news found!</h3>"
+
+#: templates/posts.html:9
+msgid "<h3>Все новости!</h3>"
+msgstr "<h3>All News</h3>"
+
+#: templates/posts.html:29
+msgid "<h1>Последние новости:</h1>"
+msgstr "<h1>Last News</h1>"
+
+#: templates/posts.html:37
+msgid "<h5>Название</h5>"
+msgstr "<h5>Title</h5>"
+
+#: templates/posts.html:38
+msgid "<h5>Дата публикации</h5>"
+msgstr "<h5>Date</h5>"
+
+#: templates/posts.html:39
+msgid "<h5>Рейтинг поста</h5>"
+msgstr "<h5>Post rating</h5>"
+
+#: templates/posts.html:40
+msgid "<h5>Категория</h5>"
+msgstr "<h5>Category</h5>"
+
+#: templates/posts.html:41
+msgid "<h5>Описание</h5>"
+msgstr "<h5>Description</h5>"
+
+#: templates/posts.html:42
+msgid "<h5>Тип</h5>"
+msgstr "<h5>Type</h5>"
+
+#: templates/subscribe.html:5
+msgid "<h2> Вы подписаны на категорию! </h2>"
+msgstr "<h2> You are subscribed! </h2>"
